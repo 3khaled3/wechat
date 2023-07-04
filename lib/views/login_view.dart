@@ -169,6 +169,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
+  // ignore: non_constant_identifier_names
   void GoToRegister(BuildContext context) {
     Navigator.push(
         context,
