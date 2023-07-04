@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,14 +26,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF183E36), Colors.black, Color(0xFF183E36)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            transform: GradientRotation(80),
-          ),
-        ),
+        decoration: _BuildBackgroundColor(),
         child: SafeArea(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -47,54 +40,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                     _buildAccountTitle(),
                     SizedBox(height: MediaQuery.sizeOf(context).height * .2),
                     const SizedBox(height: 20),
-                    TextFaildLogin(
-                      hintText: "Current password",
-                      obscureText: true,
-                      onChanged: (value) {},
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter current password';
-                        } else if (box.get('password') != value) {
-                          return 'The password you entered is incorrect';
-                        } else {
-                          currentPss = value;
-
-                          return null;
-                        }
-                        // Add more custom validation logic here if needed
-                      },
-                    ),
+                    _BuildCurrentPasTextFaild(),
                     const SizedBox(height: 20),
-                    TextFaildLogin(
-                      obscureText: true,
-                      hintText: "New password",
-                      onChanged: (value) {},
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter new password';
-                        } else {
-                          newPss = value;
-
-                          return null;
-                        }
-                      },
-                    ),
+                    _BuildNewPasTextFaild(),
                     const SizedBox(height: 20),
-                    TextFaildLogin(
-                      hintText: "Confirm new password",
-                      onChanged: (value) {},
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Enter new password again';
-                        } else if (newPss != value) {
-                          return 'Password does not match';
-                        } else {
-                          confirmPss = value;
-
-                          return null;
-                        }
-                      },
-                    ),
+                    _BuildConfirmPasTextFaild(),
                     const SizedBox(height: 20),
                     _buildSaveButton(),
                   ],
@@ -105,6 +55,73 @@ class _ChangePasswordState extends State<ChangePassword> {
         ),
       ),
     );
+  }
+
+  TextFaildLogin _BuildConfirmPasTextFaild() {
+    return TextFaildLogin(
+                    hintText: "Confirm new password",
+                    onChanged: (value) {},
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter new password again';
+                      } else if (newPss != value) {
+                        return 'Password does not match';
+                      } else {
+                        confirmPss = value;
+
+                        return null;
+                      }
+                    },
+                  );
+  }
+
+  TextFaildLogin _BuildNewPasTextFaild() {
+    return TextFaildLogin(
+                    obscureText: true,
+                    hintText: "New password",
+                    onChanged: (value) {},
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter new password';
+                      } else {
+                        newPss = value;
+
+                        return null;
+                      }
+                    },
+                  );
+  }
+
+  TextFaildLogin _BuildCurrentPasTextFaild() {
+    return TextFaildLogin(
+                    hintText: "Current password",
+                    obscureText: true,
+                    onChanged: (value) {},
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter current password';
+                      } else if (box.get('password') != value) {
+                        return 'The password you entered is incorrect';
+                      } else {
+                        currentPss = value;
+
+                        return null;
+                      }
+                      // Add more custom validation logic here if needed
+                    },
+                  );
+  }
+
+
+  BoxDecoration _BuildBackgroundColor() {
+    return const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFF183E36), Colors.black, Color(0xFF183E36)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          transform: GradientRotation(80),
+        ),
+      );
   }
 
   Widget _buildAccountTitle() {
