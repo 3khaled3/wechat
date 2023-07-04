@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:story/story.dart';
+// ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:story/story.dart';
 import '../modelview/storesmodel.dart';
 
 class StoryView extends StatefulWidget {
   const StoryView({super.key, required this.user});
   final UserModel user;
-
   @override
   State<StoryView> createState() => _StoryViewState();
 }
@@ -16,7 +17,6 @@ class _StoryViewState extends State<StoryView> {
   @override
   void initState() {
     sampleUsers.add(widget.user);
-
     super.initState();
   }
 
@@ -29,41 +29,17 @@ class _StoryViewState extends State<StoryView> {
           final story = user.stories[storyIndex];
           return Stack(
             children: [
-              Positioned.fill(
-                child: Container(color: Colors.black),
-              ),
-              Positioned.fill(
-                child: Image.network(
-                  story.imageUrl,
-                  // fit: BoxFit.none,
-                ),
-              ),
+              _buildCircleIndicator(),
+              _buildStoryImage(story),
               Padding(
                 padding: const EdgeInsets.only(top: 44, left: 8),
                 child: Row(
                   children: [
-                    Container(
-                      height: 32,
-                      width: 32,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(user.imageUrl),
-                          fit: BoxFit.cover,
-                        ),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
+                    _BuildUserImage(user),
                     const SizedBox(
                       width: 8,
                     ),
-                    Text(
-                      user.userName,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    _BuildUsername(user),
                   ],
                 ),
               ),
@@ -94,6 +70,53 @@ class _StoryViewState extends State<StoryView> {
           Navigator.pop(context);
         },
       ),
+    );
+  }
+
+  Text _BuildUsername(UserModel user) {
+    return Text(
+      user.userName,
+      style: const TextStyle(
+        fontSize: 17,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Container _BuildUserImage(UserModel user) {
+    return Container(
+      height: 32,
+      width: 32,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(user.imageUrl),
+          fit: BoxFit.cover,
+        ),
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+
+  Positioned _buildStoryImage(StoryModel story) {
+    return Positioned.fill(
+      child: Image.network(
+        story.imageUrl,
+        // fit: BoxFit.none,
+      ),
+    );
+  }
+
+  Positioned _buildCircleIndicator() {
+    return Positioned.fill(
+      child: Container(
+          color: Colors.black,
+          child: Center(
+            child: LoadingAnimationWidget.newtonCradle(
+              color: Colors.white,
+              size: 140,
+            ),
+          )),
     );
   }
 }
