@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -10,28 +12,16 @@ class appinfo extends StatelessWidget {
     return Scaffold(
         body: Container(
       height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF183E36), Colors.black, Color(0xFF183E36)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          transform: GradientRotation(80),
-        ),
-      ),
+      decoration: BuildBackground(),
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            CircleAvatar(
-              radius: 112,
-              backgroundColor: Colors.white,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(info),
-                radius: 110,
-              ),
+            BuildImageSection(),
+            const SizedBox(
+              height: 16,
             ),
-            const SizedBox(height: 16,),
             const Text(
               "khaled tarek",
               style: TextStyle(
@@ -52,61 +42,63 @@ class appinfo extends StatelessWidget {
                 color: Color.fromARGB(255, 105, 105, 105),
                 endIndent: 30,
                 indent: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromARGB(255, 238, 238, 238),
-                ),
-                child: const Row(
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(Icons.phone),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "01273793869",
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromARGB(255, 238, 238, 238),
-                ),
-                child: const Row(
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(Icons.email),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "dev.khaledtarek@gmail.com",
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            BuildViewData("01273793869", Icons.phone),
+            BuildViewData("dev.khaledtarek@gmail.com", Icons.email),
             const Spacer(),
             const Spacer(),
           ],
         ),
       ),
     ));
+  }
+
+  CircleAvatar BuildImageSection() {
+    return CircleAvatar(
+      radius: 112,
+      backgroundColor: Colors.white,
+      child: CircleAvatar(
+        backgroundImage: NetworkImage(info),
+        radius: 110,
+      ),
+    );
+  }
+
+  BoxDecoration BuildBackground() {
+    return const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color(0xFF183E36), Colors.black, Color(0xFF183E36)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        transform: GradientRotation(80),
+      ),
+    );
+  }
+
+  Padding BuildViewData(data, icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+      child: Container(
+        height: 45,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: const Color.fromARGB(255, 238, 238, 238),
+        ),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Icon(icon),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              data,
+              style: const TextStyle(fontSize: 20),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
