@@ -20,7 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
   String? emailAddress = " a", password = " a", userName = " a";
   var box = Hive.box('myBox');
   UserCredential? useraccess;
-  
+
   Future<void> createAccountAndSendEmailVerification() async {
     try {
       if (emailAddress != null && password != null && userName != null) {
@@ -33,16 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
         User? user = credential.user;
         await user!.updateDisplayName(userName);
         await user.sendEmailVerification();
-        CollectionReference usersCollection =
-            FirebaseFirestore.instance.collection('users');
 
-        await usersCollection.doc(user.uid).set({
-          'uid': user.uid,
-          "displayName": userName,
-          "email": emailAddress,
-          "photoURL": user.photoURL,
-          "lastseen": user.metadata.lastSignInTime
-        });
         emit(success());
       }
     } on FirebaseAuthException catch (e) {
@@ -183,7 +174,7 @@ class AuthCubit extends Cubit<AuthState> {
         }
 
         String fileName = basename(newPhoto.path);
-        Reference reference = storage.ref('profile_photos/$fileName');
+        Reference reference = storage.ref('profile_photos/${user.uid}/$fileName');
         await reference.putFile(newPhoto);
         String downloadUrl = await reference.getDownloadURL();
         await user.updatePhotoURL(downloadUrl);
@@ -228,8 +219,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signOut() async {
     try {
       emit(waitting());
-       box.put('emailAddress', null);
-          box.put('password', null);
+      box.put('emailAddress', null);
+      box.put('password', null);
       await FirebaseAuth.instance.signOut();
       emit(success());
     } catch (e) {
