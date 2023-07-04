@@ -228,6 +228,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signOut() async {
     try {
       emit(waitting());
+       box.put('emailAddress', null);
+          box.put('password', null);
       await FirebaseAuth.instance.signOut();
       emit(success());
     } catch (e) {

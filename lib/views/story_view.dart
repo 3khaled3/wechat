@@ -35,7 +35,7 @@ class _StoryViewState extends State<StoryView> {
               Positioned.fill(
                 child: Image.network(
                   story.imageUrl,
-                  fit: BoxFit.cover,
+                  // fit: BoxFit.none,
                 ),
               ),
               Padding(
