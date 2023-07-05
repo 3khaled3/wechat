@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
+import 'package:chat_bubbles/message_bars/message_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -184,47 +185,34 @@ class _GroupchatScreenState extends State<GroupchatScreen>
     );
   }
 
-Widget _BuildSendMassegeSection() {
-  String message="";
-  return Column(
-    children: [
-      TextField(
-        onChanged: (value) {
-          setState(() {
-            message = value; // Save the current value when it changes
-          });
-        },
-        controller: TextEditingController(text: message),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: const Color.fromARGB(82, 19, 24, 19),
-          prefixIcon: InkWell(
-            child: const Icon(
-              Icons.add,
-              color: Color.fromARGB(255, 255, 255, 255),
-              size: 24,
-            ),
-            onTap: () {},
+  MessageBar _BuildSendMassegeSection() {
+    return MessageBar(
+      messageBarColor: const Color.fromARGB(82, 19, 24, 19),
+      onSend: (value) async {
+        // Add the code to create the collection if it doesn't exist
+        await _SendTextMassege(value);
+      },
+      actions: [
+        InkWell(
+          child: const Icon(
+            Icons.add,
+            color: Color.fromARGB(255, 255, 255, 255),
+            size: 24,
           ),
-          suffixIcon: InkWell(
-            child: const Icon(
-              Icons.camera_alt,
-              color: Colors.green,
-              size: 24,
-            ),
-            onTap: () {},
-          ),
+          onTap: () {},
         ),
-      ),
-      ElevatedButton(
-        onPressed: () async {
-          await _SendTextMassege(message);
-        },
-        child: const Text('Send'),
-      ),
-    ],
-  );
-} 
+        const SizedBox(width: 8),
+        InkWell(
+          child: const Icon(
+            Icons.camera_alt,
+            color: Colors.green,
+            size: 24,
+          ),
+          onTap: () {},
+        ),
+      ],
+    );
+  }
 
   Future<void> _SendTextMassege(String value) async {
     String? sendername = FirebaseAuth.instance.currentUser!.displayName;
