@@ -1,11 +1,12 @@
 
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../cubits/auth_cubit/auth_cubit.dart';
 
 class UserInformation extends StatefulWidget {
@@ -36,7 +37,7 @@ class _UserInformationState extends State<UserInformation> {
                     backgroundImage:
                         FirebaseAuth.instance.currentUser!.photoURL == null
                             ? const AssetImage("assets/new.png")
-                            : NetworkImage(FirebaseAuth.instance.currentUser!
+                            : CachedNetworkImageProvider(FirebaseAuth.instance.currentUser!
                                 .photoURL!) as ImageProvider<Object>,
                   ),
                   const SizedBox(height: 16),

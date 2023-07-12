@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class StoryCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey,
                     image: DecorationImage(
-                      image: NetworkImage(userProfile['storyURL'][0]),
+                      image: CachedNetworkImageProvider(userProfile['storyURL'][0]),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -81,7 +82,7 @@ class StoryCard extends StatelessWidget {
                               backgroundImage: userProfile['profileimage'] ==
                                       null
                                   ? const AssetImage("assets/new.png")
-                                  : NetworkImage(userProfile['profileimage'])
+                                  : CachedNetworkImageProvider(userProfile['profileimage'])
                                       as ImageProvider<Object>,
                               maxRadius: 23,
                             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wechat/views/groupchat.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class GroupCard extends StatelessWidget {
   const GroupCard({
@@ -34,7 +35,7 @@ class GroupCard extends StatelessWidget {
                 CircleAvatar(
                   backgroundImage:
                       // ignore: unnecessary_cast
-                      NetworkImage(groupimage) as ImageProvider<Object>,
+                      CachedNetworkImageProvider(groupimage) as ImageProvider<Object>,
                   radius: 35,
                 ),
                 const SizedBox(

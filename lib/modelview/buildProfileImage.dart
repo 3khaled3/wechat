@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wechat/modelview/snakebar.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../cubits/auth_cubit/auth_cubit.dart';
 
 
@@ -33,7 +33,7 @@ buildProfileImage() {
                backgroundImage:
                         FirebaseAuth.instance.currentUser!.photoURL == null
                             ? const AssetImage("assets/new.png")
-                            : NetworkImage(FirebaseAuth.instance.currentUser!
+                            : CachedNetworkImageProvider(FirebaseAuth.instance.currentUser!
                                 .photoURL!) as ImageProvider<Object>,
               child: ElevatedButton(
                 onPressed: () async {

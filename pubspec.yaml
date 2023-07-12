@@ -62,6 +62,7 @@ dependencies:
   intl: ^0.18.1
   story_view: ^0.14.0
   story: ^1.1.0
+  cached_network_image: ^3.2.3
   
 
 

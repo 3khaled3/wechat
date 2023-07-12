@@ -5,7 +5,7 @@ import 'package:chat_bubbles/message_bars/message_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({
@@ -208,7 +208,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
           CircleAvatar(
             backgroundImage: widget.imageurl == null
                 ? const AssetImage("assets/new.png")
-                : NetworkImage(widget.imageurl.toString())
+                : CachedNetworkImageProvider(widget.imageurl.toString())
                     as ImageProvider<Object>,
             child: ElevatedButton(
               onPressed: () async {},

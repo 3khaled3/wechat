@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wechat/cubits/chat_cubit/chat_cubit.dart';
 import 'package:intl/intl.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../views/chat_view.dart';
 
@@ -59,7 +59,7 @@ class ChatCard extends StatelessWidget {
                           CircleAvatar(
                             backgroundImage: userProfile['photoURL'] == null
                                 ? const AssetImage("assets/new.png")
-                                : NetworkImage(userProfile['photoURL'])
+                                : CachedNetworkImageProvider(userProfile['photoURL'])
                                     as ImageProvider<Object>,
                             radius: 35,
                           ),

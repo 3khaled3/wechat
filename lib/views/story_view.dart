@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:story/story.dart';
 import '../modelview/storesmodel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class StoryView extends StatefulWidget {
   const StoryView({super.key, required this.user});
@@ -29,8 +30,13 @@ class _StoryViewState extends State<StoryView> {
           final story = user.stories[storyIndex];
           return Stack(
             children: [
-              _buildCircleIndicator(),
-              _buildStoryImage(story),
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black,
+                ),
+              ),
+         Positioned.fill(
+      child:      _buildStoryImage(story),),
               Padding(
                 padding: const EdgeInsets.only(top: 44, left: 8),
                 child: Row(
@@ -90,7 +96,7 @@ class _StoryViewState extends State<StoryView> {
       width: 32,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(user.imageUrl),
+          image: CachedNetworkImageProvider(user.imageUrl),
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,
@@ -98,25 +104,23 @@ class _StoryViewState extends State<StoryView> {
     );
   }
 
-  Positioned _buildStoryImage(StoryModel story) {
-    return Positioned.fill(
-      child: Image.network(
-        story.imageUrl,
-        // fit: BoxFit.none,
-      ),
-    );
+   _buildStoryImage(StoryModel story) {
+    return CachedNetworkImage(
+        imageUrl: story.imageUrl,
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            _buildCircleIndicator(),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      );
+    
   }
 
-  Positioned _buildCircleIndicator() {
-    return Positioned.fill(
-      child: Container(
+   _buildCircleIndicator() {
+    return
+       Container(
           color: Colors.black,
-          child: Center(
-            child: LoadingAnimationWidget.newtonCradle(
-              color: Colors.white,
-              size: 140,
-            ),
-          )),
-    );
+          child: LoadingAnimationWidget.newtonCradle(
+            color: Colors.white,
+            size: 140,
+          ));
   }
 }

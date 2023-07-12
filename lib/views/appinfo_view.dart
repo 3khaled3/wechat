@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 // ignore: camel_case_types
 class appinfo extends StatelessWidget {
   const appinfo({super.key});
@@ -57,7 +57,7 @@ class appinfo extends StatelessWidget {
       radius: 112,
       backgroundColor: Colors.white,
       child: CircleAvatar(
-        backgroundImage: NetworkImage(info),
+        backgroundImage: CachedNetworkImageProvider(info),
         radius: 110,
       ),
     );
