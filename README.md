@@ -13,9 +13,7 @@ This repository contains the source code for a Chat App developed to facilitate 
 - Create, join, and manage group conversations with friends and colleagues.
 
 ### Multi-Story Sharing
-- Share short stories and images with followers.
-- Enhance stories with image editing tools and creative elements.
-- Express yourself creatively through visual storytelling.
+- Share short stories and images with friends.
 
 ### User-Friendly Interface
 - Navigate effortlessly between chat, stories, and account sections.
