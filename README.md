@@ -22,3 +22,7 @@ This repository contains the source code for a Chat App developed to facilitate 
 
 ## screens
 ![all](https://github.com/3khaled3/wechat/assets/99047350/9938e19f-b17b-4048-9f25-d7dae1f07a1b)
+## video
+https://github.com/3khaled3/wechat/assets/99047350/322aa5c6-2f15-4c88-bc65-bbc21c4c46ce
+
+
